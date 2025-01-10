@@ -2,8 +2,18 @@ import express from "express";
 import mongoose from "mongoose";
 import path from "path";
 import { fileURLToPath } from "url";
-import cors from "cors"; // Import CORS
 import dotenv from "dotenv";
+const cors = require('cors');
+
+const corsOptions = {
+  origin: 'https://yasirmarwat09.github.io/opio-fragrances-repo', // Update with your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions)); // Apply CORS globally
+app.options('*', cors()); // Handle preflight requests
+
 
 dotenv.config();
 
@@ -14,8 +24,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 // const port = 3000;
 
-// Enable CORS for all routes
-app.use(cors()); // This enables CORS for all routes
 
 // Middleware to parse incoming JSON data
 app.use(express.json());
